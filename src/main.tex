@@ -1,0 +1,224 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% Title and Author Information
+\title{The Autonomous Robo Cop}
+
+\author{\IEEEauthorblockN{Talha Arshad \textbf{Reg No: 410179}, Sohaib Afzal \textbf{Reg No: 411928},\\ Osaid Amjad \textbf{Reg No: 410196},
+Muhammad Taha \textbf{Reg No: 417609},\\ Furqan Ahmed Fareed \textbf{Reg No: 414773}, Muhammad Junaid \textbf{Reg No: 432003}}
+\IEEEauthorblockA{ \textbf{EC310 Microcontroller and Microprocessor Based Design B, DE-44 Computers, Syndicate – B}}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The ESP32 Robo Cop car project demonstrates an innovative integration of embedded systems and robotics for efficient, low-cost security and fire safety solutions. The system effectively detects intruders and extinguishes fires, highlighting the potential of robotics for addressing real-world challenges.
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+\subsection{\textbf{Background and Motivation}}
+The advent of Embedded Systems and Internet of Things has revolutionized many professional and industrial sectors by bringing automation into our daily lives. The prevalence of automation and robotics has provided us with efficient solutions to common day-to-day problems. 
+
+Our motivation being \textit{“Make daily lives simpler,”} we present to you our project, the Autonomous Robo Cop. By leveraging cutting-edge technology using Embedded Systems and IoT, we aim to simplify daily life, reduce human intervention in industries, and offer modern automation solutions to tasks heavily reliant on human labor, reducing associated costs.
+
+\subsection{\textbf{Objectives}}
+The primary goal of this project is to design and implement an autonomous Robo Cop car using an ESP32 microcontroller. The system is designed for tasks like intruder detection, fire detection, and autonomous fire extinguishing. It serves as a security cop for industrial warehouses and as a fire extinguisher for emergencies. This project aligns with the 9th and 11th United Nations Sustainable Development Goals.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\linewidth]{UN9.png}
+    \hspace{1.0cm}
+    \includegraphics[width=0.4\linewidth]{UN11.png}
+    \caption{9th and 11th United Nations Sustainable Development Goals.}
+    \label{fig:UN Sustainable Development Goals.}
+\end{figure}
+\section{Project Specifications}
+\subsection{\textbf{Components Used}}
+\subsubsection{\textbf{Robo Cop}}
+\begin{itemize}
+    \item 1x ESP32
+    \item 1x PIR Sensor
+    \item 3x IR Sensors
+    \item 1x Passive Buzzer
+    \item 1x 5V Relay Module
+    \item 1x Servo Motor
+    \item 1x Water Pump and Water Tank
+    \item 1x MQ2 Smoke Sensor
+    \item Connecting wires
+\end{itemize}
+
+\subsubsection{\textbf{Remote Control Car}}
+\begin{itemize}
+    \item 1x ESP32 Cam
+    \item Car Chassis
+    \item 4x Motors and Wheels
+    \item L298N Motor Driver
+    \item 14V Battery
+    \item Connecting wires
+\end{itemize}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\linewidth]{D1.jpg}
+    \caption{The Autonomous Robo Cop.}
+    \label{fig:UN Sustainable Development Goals.}
+\end{figure}
+\section{Project Features}
+\subsection{\textbf{Robo Cop}}
+\begin{itemize}
+    \item \textbf{ESP32}: Main microcontroller for functionality.
+    \item \textbf{PIR Sensor}: Detects intruders. Detects motion by sensing infrared radiation (heat) emitted by objects, especially humans and animals.Consists of pyroelectric materials that generate an electrical charge when exposed to infrared radiation.he sensor detects changes in the IR levels in its environment, signaling movement.
+    \item \textbf{IR Sensors}: Detects fire.Comprise an IR LED (emitter) and a photodiode (receiver).When the emitted IR light reflects off an object and returns, the receiver detects it.
+    \item \textbf{Passive Buzzer}: Alerts for smoke detection. Generates sound signals or alerts.Requires an external signal or waveform to produce sound.Vibrates at the input frequency, creating an audible tone.
+    \item \textbf{5V Relay Module}: Activates the servo motor.Acts as a switch to control high-power electrical devices using low-power signals.A small electrical current activates an electromagnet, which closes or opens the relay contacts to control another circuit.
+    \item \textbf{Servo Motor}: Rotates the water pump.Provides precise control of angular or linear position, velocity, and acceleration.Operates on Pulse Width Modulation (PWM).Receives a control signal to determine the position of its shaft.
+    \item \textbf{Water Pump and Tank}: Extinguishes fires.Water Pump moves water from the tank to a specific location.Uses a motor to create a pressure difference that drives the water.Water Tank Stores water for supply to the pump, A reservoir for water storage; can be connected to sensors for level monitoring.
+    \item  \textbf{MQ2 Smoke Sensor}:Detects gases like smoke, LPG, methane, and propane.Uses a sensitive material (usually SnO2) that changes resistance when exposed to specific gases.The change in resistance alters the sensor's output voltage, which indicates the gas concentration.
+    \item  \textbf{Connecting Wires}: Connects components.
+\end{itemize}
+
+\subsubsection{\textbf{Connections}}
+\begin{itemize}
+    \item \textbf{MQ2 Gas Sensor Connections}: VCC to 3.3V, OUT to GPIO18, GND to GND.
+    \item \textbf{IR Sensor Connections}: Three sensors connected to GPIO35, GPIO32, GPIO33.
+    \item \textbf{Passive Buzzer}: Positive to GPIO19, Negative to GND.
+    \item \textbf{Relay Module}: VCC to 3.3V, GND to GND, IN to GPIO26.
+    \item \textbf{Servo Motor}: RED to 3.3V, BROWN to GND, ORANGE to GPIO5.
+    \item \textbf{Water Pump}: Connected via relay module.
+\end{itemize}
+
+\subsubsection{\textbf {Working}}
+\paragraph{\textbf{Motion Detection}}
+PIR sensor detects motion, triggering alerts.
+\begin{itemize}
+    \item {OUT PIN of PIR Sensor is initially set to LOW, hence no motion detected.}
+    \item{When the PIR Sensor detects the motion, it sets OUT PIN to HIGH.}
+    \item{GPIO18 PIN connected to OUT PIN informs Robo Cop about motion detection.}
+    \item{Robo Cop sends an Intruder alert, in case of motion detection.}
+\end{itemize}
+\paragraph{\textbf{Fire Extinguishing}}
+IR sensors detect fire, activating the buzzer, relay module, and water pump.
+\begin{itemize}
+    \item {OUT PIN of IR Sensor is initially set to LOW, hence there is no fire initially.}
+    \item{When there is fire, the IR sensor detects Infrared radiation coming from fire and sets OUT PIN to HIGH, which then sets any of GPIO PINS ( GPIO35, GPIO32, GPIO33) depending upon which IR sensor detects fire.}
+    \item{When Robo Cop detects smoke with MqQ2 Smoke Sensor, it activates a passive buzzer to alert others about fire.}
+    \item{Robo Cop also activates the Relay Module (which is initially off).}    
+    \item{The Relay Module is connected to the servo motor and water pump so Servo Motor and Water Pump is activated.}
+    \item{Servo Motor rotates water Pumps, Hence Robo Cop serves as a Fire Extinguisher.}
+\end{itemize}
+\textbf {3) Schematics:}
+\begin{figure}[htbp]
+    \centering
+\includegraphics[width=0.7\linewidth]{D2.png}
+    \caption{The Schematics of Autonomous Robo Cop.}
+    \label{fig:The Schematics of Autonomous Robo Cop.}
+\end{figure}
+\subsection{\textbf{Remote Control Car}}
+\begin{itemize}
+    \item \textbf{ESP32 Cam}: Main microcontroller with Wi-Fi.
+    \item \textbf{Car Chassis}: Provides a sturdy framework to hold all components like motors, batteries, and microcontroller securely.Usually made of plastic, aluminum, or acrylic for lightweight and durability.May have pre-drilled holes for mounting components.
+    \item \textbf{Motors}:Provide the driving force to move the car forward, backward, or turn.Typically DC motors or geared DC motors are used for remote-controlled cars.Convert electrical energy from the battery into mechanical energy (rotation).Speed and direction are controlled by the L298N motor driver.
+    \item \textbf{Wheels}:Facilitate movement by converting the rotational force from the motors into linear motion.
+    \item \textbf{L298N Driver}: Acts as an interface between the microcontroller (ESP32-CAM) and the motors, allowing control of speed and direction.Converts low-current control signals from the ESP32-CAM into high-current outputs for the motors.Supports PWM (Pulse Width Modulation) for speed control.Includes a heat sink for temperature management.
+    \item \textbf{Battery}:Powers the entire system, including the ESP32-CAM, motors, and motor driver.Commonly used batteries include Li-ion or Li-Po (lightweight, rechargeable) or AA battery packs.Typically provides 7.4V to 12V, depending on the motor and ESP32-CAM requirements.
+\end{itemize}
+\subsubsection{\textbf{Connections }}
+\begin{itemize}
+    \item\textbf{L298N Motor Driver} 
+    \begin{itemize}
+    \item GPIO 14 → Motor Driver IN1 (Left Motor Forward)
+    \item GPIO 15 → Motor Driver IN2 (Left Motor Backward)
+    \item GPIO 13 → Motor Driver IN3 (Right Motor Forward)
+    \item GPIO 12 → Motor Driver IN4 (Right Motor Backward)
+     \item 5V (VCC): Connect to the ESP32-CAM's 5V pin.
+     \item GND: Connect to the ESP32-CAM's GND pin.
+\end{itemize}
+    \item \textbf{PIR Sensor} 
+        \begin{itemize}
+    \item VCC: Connect to 5V on the ESP32-CAM.
+    \item GND: Connect to GND on the ESP32-CAM.
+    \item OUT: Connect to GPIO 2 on the ESP32-CAM.
+    \end{itemize}
+    \item \textbf{DC Motors (Left and Right)} 
+\begin{itemize}
+        \item Connect the two terminals of the left motor to the OUT1 and OUT2 ports on the L298N.
+        \item Connect the two terminals of the right motor to the OUT3 and OUT4 ports on the L298N.
+\end{itemize}
+\end{itemize}
+\subsubsection{\textbf{ESP32 Programming }}
+\begin{itemize}
+    \item Program ESP32 Cam using the Arduino IDE or another suitable IDE.
+    \item Implement logic for controlling motors based on input from a remote-control source.
+    \item Set up a Wi-Fi connection for remote control.
+\end{itemize}
+
+\subsubsection{\textbf{Remote Control Interface}}
+\begin{itemize}
+ \item Create a remote-control interface using a web-based application.
+    \item Implement controls for forward, backward, left, and right movements.
+\end{itemize}
+
+\subsubsection{\textbf{Operation}}
+\begin{itemize}
+
+    \item \textbf{Power On:} Connect the battery to power on the car.
+
+       \item \textbf{Connect to Wi-Fi:} ESP32 Cam connects to a Wi-Fi network, enabling remote control.
+
+
+    \item \textbf{Remote Control:} Use the remote-control interface to send commands to ESP32 Cam.
+    \item \textbf{Remote Control:} ESP32 processes commands and controls motors accordingly.
+\end{itemize}
+
+\subsubsection {\textbf{Movement}}
+\begin{itemize}
+    \item Motors receive signals from ESP32 and move the car based on the commands received.
+\end{itemize}
+
+\subsection{\textbf{Considerations}}
+\begin{itemize}
+    \item Ensure sufficient power supply for both motors and ESP32 Cam.
+     \item Implement proper error handling and safety mechanisms to prevent accidents or damage.
+ \item Test the car in a controlled environment before deploying it in more complex scenarios.
+\end{itemize}
+
+
+
+
+\subsection{\textbf{Working}}
+\begin{itemize}
+
+\item {\textbf {User Input:} User provides input via the remote control interface (forward, backward, left, right).}
+\item {\textbf {ESP32 Cam:} processes user input and generates control signals for the motors.}
+\item {\textbf {L298N Motor Driver:} interprets control signals and adjusts motor speed and direction.}
+
+\item {\textbf {Car Movement:} Motors move the wheels according to the control signals, resulting in the car moving as per user commands.}
+\end{itemize}
+
+\textbf {E) Schematics:}
+\begin{figure}[htbp]
+    \centering
+\includegraphics[width=0.7\linewidth]{D3.png}
+    \caption{The Schematics of Remote Control Car.}
+    \label{fig:The Schematics of Remote Control Car.}
+\end{figure}
+\section{Issues Faced}
+\begin{itemize}
+    \item Sensitivity adjustments for PIR sensor.
+    \item Calibration of servo motor for precise water extraction.
+    \item Unstable pwm signal when using more than 1 signal.
+    \item High current consumption causing brownout for our camera.
+    \item Infrared flam sensors affected by external infrared.
+\end{itemize}
+
+\section{Conclusion}
+The ESP32 Robo Cop car project successfully demonstrates the integration of embedded systems and robotics to create a low-cost, efficient, and autonomous security and fire safety solution. The system effectively detects intruders using a PIR sensor and alerts users via a buzzer, ensuring a reliable security mechanism. Additionally, the inclusion of an IR sensor enables fire detection, with the system autonomously activating a water pump through a relay to mitigate fire hazards. In conclusion, this project highlights the potential of embedded systems and robotics to address real-world challenges in security and safety, paving the way for more sophisticated and innovative autonomous solutions in the future.
+
+\section{Video Link}
+\url{https://drive.google.com/drive/folders/103p0UOKOJB4-2O2NFi9lzOHy3o0UlupQ}
+
+\end{document}
